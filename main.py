@@ -1,7 +1,7 @@
 import math
 
 
-def computeCycle(i: float, factor: int) -> int:
+def compute_cycle(i: float, factor: int) -> int:
     if i <= 1:
         return 1
     occurrences = 0
@@ -16,28 +16,28 @@ def computeCycle(i: float, factor: int) -> int:
 def compute(i: int, cycleBase: int = 5) -> float:
     if i < 0 or cycleBase < 1:
         raise ValueError("Invalid input. i must be >= 0, and cycleBase must >= 1.")
-    cycle = computeCycle(i, cycleBase)
+    cycle = compute_cycle(i, cycleBase)
     # Due to inaccuracies in floating point numbers, the log function may result
     # in unexpected results when rounding.
     # cycle = math.ceil(math.log(i, cycleBase)) if i > 1 else 1
     delta = 1 / (cycleBase ** cycle)
 
-    previousCycleLastIndex = cycleBase ** (cycle - 1) if cycle > 1 else 0
-    cycleIndex = i - previousCycleLastIndex
+    previous_cycle_last_index = cycleBase ** (cycle - 1) if cycle > 1 else 0
+    cycle_index = i - previous_cycle_last_index
 
     # Cycle 1 is a special case since there were previously no cycles before it,
     # and there is an extra point on this cycle.
     if cycle == 1:
-        increment = cycleIndex * delta
+        increment = cycle_index * delta
     else:
-        big_leaps = math.floor((cycleIndex - 1) / (cycleBase - 1))
-        small_leaps = (cycleIndex - 1) - big_leaps
+        big_leaps = math.floor((cycle_index - 1) / (cycleBase - 1))
+        small_leaps = (cycle_index - 1) - big_leaps
 
         increment = (big_leaps * 2 * delta) + (small_leaps * delta) + delta
     # print(f"cycle: {cycle}, cycleIndex: {cycleIndex}, increment: {increment}")
     return increment
 
 
-# for x in range(0, 5):
-#     print(compute(x, 3))
+# for x in range(0, 12):
+#     print(compute(x, 2))
 
