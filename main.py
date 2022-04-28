@@ -14,6 +14,8 @@ def computeCycle(i: float, factor: int) -> int:
 
 
 def compute(i: int, cycleBase: int = 5) -> float:
+    if i < 0 or cycleBase < 1:
+        raise ValueError("Invalid input. i must be >= 0, and cycleBase must >= 1.")
     cycle = computeCycle(i, cycleBase)
     # Due to inaccuracies in floating point numbers, the log function may result
     # in unexpected results when rounding.
@@ -36,6 +38,6 @@ def compute(i: int, cycleBase: int = 5) -> float:
     return increment
 
 
-# for x in range(0, 180000):
+# for x in range(0, 5):
 #     print(compute(x, 3))
 
